@@ -5,14 +5,14 @@
 
 ## How to Run
 
-Part 1:
+Part A:
 ```
-jconsole 01a.ijs
+jconsole 02a.ijs
 ```
 
-Part 2:
+Part B:
 ```
-jconsole 01b.ijs
+jconsole 02b.ijs
 ```
 
 ## Puzzle
