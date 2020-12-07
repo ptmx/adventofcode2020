@@ -6,9 +6,9 @@
 
 ## How to Run
 
-Part A:
+Part A & B:
 ```
-psql -tq -U postgres -f 07a.sql
+psql -tq -U postgres -f 07.sql
 ```
 
 ## Puzzle

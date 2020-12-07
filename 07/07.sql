@@ -56,3 +56,26 @@ WITH RECURSIVE possible_outer_bags AS (
 )
 SELECT COUNT(DISTINCT outer_bag)
 FROM possible_outer_bags;
+
+WITH RECURSIVE required_inner_bags AS (
+  SELECT
+    containing_bag_colour AS outer_bag,
+    contained_bag_colour AS inner_bag,
+    contained_bag_count AS inner_bag_count
+  FROM
+    bag_pairs
+  WHERE
+    containing_bag_colour = 'shiny gold'
+  UNION
+  SELECT
+    containing_bag_colour,
+    contained_bag_colour,
+    bag_pairs.contained_bag_count * required_inner_bags.inner_bag_count
+  FROM 
+    bag_pairs
+    JOIN required_inner_bags ON (
+      bag_pairs.containing_bag_colour = required_inner_bags.inner_bag
+    )
+)
+SELECT SUM(inner_bag_count)
+FROM required_inner_bags;
