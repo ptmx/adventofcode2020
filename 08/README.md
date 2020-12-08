@@ -10,6 +10,11 @@ Part A:
 runghc 08a.hs
 ```
 
+Part B:
+```
+runghc 08b.hs
+```
+
 ## Puzzle
 
 --- Day 8: Handheld Halting ---
