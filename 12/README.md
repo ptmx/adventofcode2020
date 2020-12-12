@@ -1,13 +1,13 @@
 ## Requirements
 
-- []()
-- Make sure the installed `bin/` binary is on your PATH
+- [Groovy](https://groovy.apache.org/download.html)
+- Make sure the installed `bin/groovy` binary is on your PATH
 
 ## How to Run
 
-Part A:
+Part A and B:
 ```
-
+groovy 12.groovy
 ```
 
 ## Puzzle
