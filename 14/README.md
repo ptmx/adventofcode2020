@@ -6,17 +6,13 @@
 ## How to Run
 
 Part A:
-
 ```
-g++ 14a.cpp -o 14a
-./14a
+g++ 14a.cpp -o 14a && ./14a
 ```
 
 Part B:
-
 ```
-g++ 14b.cpp -o 14b
-./14b
+g++ 14b.cpp -o 14b && ./14b
 ```
 
 ## Puzzle
