@@ -17,7 +17,7 @@ fun inputDirectionToVector(direction: String): HexVector {
 }
 
 fun parseLineToDirections(line: String): List<String> {
-  var directions = mutableListOf<String>();
+  val directions = mutableListOf<String>();
   var pos = 0
   while (pos < line.length) {
     val direction = when (line[pos]) {
@@ -25,7 +25,7 @@ fun parseLineToDirections(line: String): List<String> {
       'w'  -> "w"
       'n'  -> "n" + line[pos + 1]
       's'  -> "s" + line[pos + 1]
-      else -> throw IllegalArgumentException("Invalid direction")
+      else -> throw IllegalArgumentException("Invalid line")
     }
     directions.add(direction)
     pos += direction.length
@@ -33,7 +33,23 @@ fun parseLineToDirections(line: String): List<String> {
   return directions
 }
 
+fun getAdjacentTiles(tile: HexVector): List<HexVector> {
+  val adjacentTiles = mutableListOf<HexVector>();
+  adjacentTiles.add(tile + HexVector(2, 0))
+  adjacentTiles.add(tile + HexVector(-2, 0))
+  adjacentTiles.add(tile + HexVector(1, 1))
+  adjacentTiles.add(tile + HexVector(-1, 1))
+  adjacentTiles.add(tile + HexVector(1, -1))
+  adjacentTiles.add(tile + HexVector(-1, -1))
+  return adjacentTiles
+}
+
+fun countAdjacentBlackTiles(blackTiles: Set<HexVector>, tile: HexVector): Int {
+  return getAdjacentTiles(tile).filter { blackTiles.contains (it) }.size
+}
+
 fun main() {
+  // Part 1
   val blackTiles: MutableSet<HexVector> = HashSet()
   File("input.txt").forEachLine { 
     val tile = parseLineToDirections(it)
@@ -41,6 +57,21 @@ fun main() {
       .reduce { a, b -> a + b }
 
     if (blackTiles.contains(tile)) blackTiles.remove(tile) else blackTiles.add(tile)
+  }
+  println(blackTiles.size)
+
+  // Part 2
+  repeat(100) {
+    val whiteTilesToFlip = blackTiles
+      .fold(listOf<HexVector>()) { tiles, tile -> tiles + getAdjacentTiles(tile) }
+      .filter { !blackTiles.contains(it) }
+      .filter { countAdjacentBlackTiles(blackTiles, it) == 2 }
+    
+    val blackTilesToFlip = blackTiles
+      .filter { countAdjacentBlackTiles(blackTiles, it) !in listOf(1, 2) }
+
+    blackTiles.removeAll(blackTilesToFlip)
+    blackTiles.addAll(whiteTilesToFlip)
   }
   println(blackTiles.size)
 }
